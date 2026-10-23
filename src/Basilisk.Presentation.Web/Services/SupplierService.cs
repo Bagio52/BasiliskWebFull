@@ -110,4 +110,9 @@ public class SupplierService
         };
     }
 
+    public List<Supplier> GetAllSuppliers()
+    {
+        return _supplierRepository.GetAllSuppliers();
+    }
+
 }

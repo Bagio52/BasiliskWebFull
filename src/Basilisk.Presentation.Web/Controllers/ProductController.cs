@@ -14,12 +14,14 @@ namespace Basilisk.Presentation.Web.Controllers
         private readonly ILogger<ProductController> _logger;
         private readonly ProductService _service;
         private readonly CategoryService _categoryService;
+        private readonly SupplierService _supplierService;
 
-        public ProductController(ILogger<ProductController> logger, ProductService service, CategoryService categoryService)
+        public ProductController(ILogger<ProductController> logger, ProductService service, CategoryService categoryService, SupplierService supplierService)
         {
             _logger = logger;
             _service = service;
             _categoryService = categoryService;
+            _supplierService = supplierService;
         }
 
         [HttpGet]
@@ -30,6 +32,7 @@ namespace Basilisk.Presentation.Web.Controllers
         )
         {
             var categories = _categoryService.GetAllCategories();
+            var suppliers = _supplierService.GetAllSuppliers();
 
             var model = new ProductIndexViewModel
             {
@@ -41,6 +44,13 @@ namespace Basilisk.Presentation.Web.Controllers
                     Value = c.Id.ToString(),
                     Text = c.Name,
                     Selected = c.Id == categoryId
+                }).ToList(),
+
+                Suppliers = suppliers.Select(s => new SelectListItem
+                {
+                    Value = s.Id.ToString(),
+                    Text = s.CompanyName,
+                    Selected = s.Id == supplierId
                 }).ToList()
             };
 
