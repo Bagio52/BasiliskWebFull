@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <partial name="_Head" />
+</head>
+
+<body class="main-body">
+    <partial name="_SideNavigation" />
+    <header>
+        <div class="bread-crumbs">
+            @RenderSection("breadCrumbs", required: true)
+        </div>
+        <div class="user-wrapper">
+            <div class="user">
+                <span class="full-name">Username</span>
+                <span class="role">Anonymous</span>
+            </div>
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <partial name="_Footer" />
+</body>
+</html>

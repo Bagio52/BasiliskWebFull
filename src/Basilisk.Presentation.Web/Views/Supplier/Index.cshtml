@@ -1,0 +1,55 @@
+@model Basilisk.Presentation.Web.ViewModels.Supplier.SupplierIndexViewModel
+@{
+    ViewData[index: "Title"] = "Supplier Index";
+}
+
+@section breadCrumbs {
+    <span>Supplier Index</span>
+}
+
+<section class="grid-container" supplier=index>
+    <form asp-action="Index" method="get" class="filter">
+         <input type="text" name="searchCompanyName" placeholder="Company Name..." value="@ViewBag.SearchCompanyName" />
+        <input type="text" name="searchContactPerson" placeholder="Contact Person..."
+             value="@ViewBag.SearchContactPerson" />
+         <input type="text" name="searchJobTitle" placeholder="Job Title..." value="@ViewBag.SearchJobTitle" />
+        <button class="blue-button" type="submit">Search</button>
+        <a asp-action="Index" class="blue-button">Reset</a>
+    </form>
+    <a asp-action="Insert" class="blue-button create-button">Insert New Supplier</a>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Company Name</th>
+                <th>Contact Person</th>
+                <th>Job Title</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int no = 1;
+            }
+            
+            @foreach (var supplier in Model.Suppliers)
+            {
+                <tr>
+                    <td>@no</td>
+                    <td>@supplier.CompanyName</td>
+                    <td>@supplier.ContactPerson</td>
+                    <td>@supplier.JobTitle</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@supplier.Id" class="blue-button">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@supplier.Id" class="blue-button">Delete</a>
+                    </td>
+                </tr>
+
+                no++;
+            }
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</section>
+

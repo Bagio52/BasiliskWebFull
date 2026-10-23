@@ -1,0 +1,25 @@
+@model Basilisk.Presentation.Web.ViewModels.Supplier.SupplierViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Edit Supplier</a>
+    </span>
+}
+
+<form asp-action="Edit" method="post" asp-controller="Supplier" class="upsert-form">
+    
+    @Html.AntiForgeryToken()
+    <input asp-for="Id" type="hidden" />
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="CompanyName">Company Name*</label></td>
+                <td>
+                    <input asp-for="CompanyName" type="text" />
+                    <div class="field-validation-error"></div>
+                </td>
+
+                </tr>
+            </tbody>
+        </form>
+

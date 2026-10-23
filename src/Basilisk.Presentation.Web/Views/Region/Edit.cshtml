@@ -1,0 +1,33 @@
+@using Basilisk.Presentation.Web.ViewModels.Region
+@model RegionViewModel;
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Edit Category</a>
+    </span>
+}
+
+<form asp-action="Edit" method="post" class="upsert-form" asp-controller="Region">
+
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+
+    <table>
+        <tbody>
+            <tr>
+                <td> <label asp-for="City">City</label></td>
+                <td> <input asp-for="City" type="text" />
+                    <span asp-validation-for="City" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="textarea-label"><label asp-for="Remark">Remark</label></td>
+                <td> <textarea asp-for="Remark"></textarea>
+                    <span asp-validation-for="Remark" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Update Region</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

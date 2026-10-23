@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basilisk</title>
+    <link rel="icon" type="/image/ico" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../css/normalize.css">
+    <link rel="stylesheet" href="../../css/font-awesome.css">
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/authorization.css">
+    <script src="../../js/jquery-3.6.0.js"></script>
+    <script src="../../js/site.js" defer></script>
+</head>
+<body class="main-body">
+        <header>
+            <div class="bread-crumbs">
+                <span>breadcrumbs here</span>
+            </div>
+            <div class="user-wrapper">
+                <div class="user">
+                    <a class="full-name" href="../account/changePasswordForm">anonymous</a>
+                    <span class="role">guest</span>
+                </div>
+                <div class="sign-out">
+                    <form action="/logout" method="post">
+                        <button type="submit">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <nav>
+            <div class="company-logo">
+                <img src="../../image/logo.png" alt="Basilisk">
+                <h1>
+                    Trade of <span class="bold">basilisk</span>
+                </h1>
+            </div>
+            <a class="menu category" href="/category">
+                <i class="fas fa-th"></i>
+                <span>Category</span>
+            </a>
+            <a class="menu supplier" href="/supplier">
+                <i class="fab fa-amazon"></i>
+                <span>Supplier</span>
+            </a>
+            <a class="menu product" href="/product">
+                <i class="fas fa-box-open"></i>
+                <span>Product</span>
+            </a>
+        </nav>
+        <main>
+            <main>
+                <div class="grid-container category-index">
+                    <form class="filter" method="get" action="/">
+                        <input type="text" placeholder="Content Name..." name="name">
+                        <button type="submit" class="blue-button">Search</button>
+                    </form>
+                    <a href="/content/insert" class="blue-button create-button">Insert New Content</a>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Action</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a class="blue-button update-button" href="/content/update/id">Update</a>
+                                    <a class="blue-button delete-button" href="/content/delete/id">Delete</a>
+                                    <a class="blue-button detail-button" href="/content/id">Relationship</a>
+                                </td>
+                                <td>name 1</td>
+                                <td>description 1</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class="blue-button update-button" href="/content/update/id">Update</a>
+                                    <a class="blue-button delete-button" href="/content/delete/id">Delete</a>
+                                    <a class="blue-button detail-button" href="/content/id">Other</a>
+                                </td>
+                                <td>name 2</td>
+                                <td>description 2</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a class="blue-button update-button" href="/content/update/id">Update</a>
+                                    <a class="blue-button delete-button" href="/content/delete/id">Delete</a>
+                                    <a class="blue-button detail-button" href="/content/id">Other</a>
+                                </td>
+                                <td>name 3</td>
+                                <td>description 3</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="3">
+                                    <div class="pagination">
+                                        <div>page 1 of 3</div>
+                                        <div>
+                                            <a href="#">1</a>
+                                            <a href="#">2</a>
+                                            <a href="#">3</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </main>
+        </main>
+        <footer>
+            Copyrights &copy; 2023
+            <span class="author">Boby Widjaja</span>
+            All rights reserved
+        </footer>
+</body>
+</html>

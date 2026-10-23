@@ -1,0 +1,30 @@
+@model CategoryViewModel;
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Edit Product</a>
+    </span>
+}
+
+<form method="post" class="upsert-form" asp-action="Edit" asp-controller="Product">
+    @Html.AntiForgeryToken()
+    <input asp-for="Id" type="hidden" />
+
+    <table>
+        <tbody>
+            <tr>
+                <td> <label asp-for="Name">Product Name*</label> </td>
+                <td> <input asp-for="Name" type="text" />
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="textarea-label"> <label asp-for="Description"> Product Description </label> </td>
+                <td> <textarea asp-for="Description"></textarea>
+                    <span asp-validation-for="Description" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table> <button class="blue-button" type="submit"> Update Product </button>
+    <a asp-action="Index" class=" blue-button">Kembali</a>
+</form>

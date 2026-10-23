@@ -1,0 +1,67 @@
+@model Basilisk.Presentation.Web.ViewModels.Supplier.SupplierInsertViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Insert Supplier</a>
+    </span>
+}
+
+<form asp-action="Insert" method="post" asp-controller="Supplier" class="upsert-form">
+    <input type="hidden" asp-for="Supplier.Id" />
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="Supplier.CompanyName">Company Name*</label></td>
+                <td>
+                    <input asp-for="Supplier.CompanyName" type="text" />
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Supplier.ContactPerson">Contact Person*</label></td>
+                <td>
+                    <input asp-for="Supplier.ContactPerson" type="text" />
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Supplier.JobTitle">Job Title*</label></td>
+                <td>
+                    <input asp-for="Supplier.JobTitle" type="text" />
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Supplier.Address">Address</label></td>
+                <td>
+                    <input asp-for="Supplier.Address" type="text" />
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Supplier.City">City</label></td>
+                <td>
+                    <input asp-for="Supplier.City" type="text" />
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Supplier.Phone">Phone</label></td>
+                <td>
+                    <input asp-for="Supplier.Phone" type="text" />
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Supplier.Email">Email</label></td>
+                <td>
+                    <input asp-for="Supplier.Email" type="text" />
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="blue-button">Insert</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

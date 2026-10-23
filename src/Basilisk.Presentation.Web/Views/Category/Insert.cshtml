@@ -1,0 +1,38 @@
+@model CategoryInsertViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Insert Category</a>
+    </span>
+}
+<form method="post" class="upsert-form" asp-action="Insert" asp-controller="Categories">
+    <input type="hidden" />
+    <input type="hidden" />
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="Category.Name">
+                    Category Name*
+                </label></td>
+                <td> 
+                    <input asp-for="Category.Name" type="text">
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="textarea-label">
+                    <label asp-for="Category.Description">
+                        Category Description
+                    </label>
+                </td>
+                <td>
+                    <textarea asp-for="Category.Description"></textarea>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Insert Category</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

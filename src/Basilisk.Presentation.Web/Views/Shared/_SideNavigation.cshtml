@@ -1,0 +1,35 @@
+<nav>
+    <div class="company-logo">
+        <img src="~/image/logo.png" alt="Basilisk">
+
+        <h1>
+            Trade of <span class="bold">Basilisk</span>
+        </h1>
+    </div>
+    <a class="menu category" asp-controller="Category" asp-action="Index">
+        <i class="fas fa-th"></i>
+        <span>Category</span>
+    </a>
+    <a class="menu supplier" asp-controller="Supplier" asp-action="Index">
+        <i class="fab fa-amazon"></i>
+        <span>Supplier</span>
+    </a>
+    <a class="menu product" asp-controller="Product" asp-action="Index">
+        <i class="fas fa-box-open"></i>
+        <span>Product</span>
+    </a>
+
+    <a class="menu region" asp-controller="Region" asp-action="Index">
+        <i class="fas fa-solid fa-map"></i>
+        <span>Region</span>
+    </a>
+    <a class="menu customer" asp-controller="Customer" asp-action="Index">
+        <i class="fas fa-solid fa-users"></i>
+        <span>Customer</span>
+    </a>
+    <a class="menu salesman" asp-controller="Salesman" asp-action="Insert">
+        <i class="fas fa-solid fa-user-secret"></i>
+        <span>Salesman</span>
+    </a>
+
+</nav>

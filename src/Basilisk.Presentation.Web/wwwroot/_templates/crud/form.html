@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basilisk</title>
+    <link rel="icon" type="/image/ico" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../css/normalize.css">
+    <link rel="stylesheet" href="../../css/font-awesome.css">
+    <link rel="stylesheet" href="../../css/site.css">
+    <link rel="stylesheet" href="../../css/authorization.css">
+    <script src="../../js/jquery-3.6.0.js"></script>
+    <script src="../../js/site.js" defer></script>
+</head>
+<body class="main-body">
+        <header>
+            <div class="bread-crumbs">
+                <span>breadcrumbs here</span>
+            </div>
+            <div class="user-wrapper">
+                <div class="user">
+                    <a class="full-name" href="../account/changePasswordForm">anonymous</a>
+                    <span class="role">guest</span>
+                </div>
+                <div class="sign-out">
+                    <form action="/logout" method="post">
+                        <button type="submit">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <nav>
+            <div class="company-logo">
+                <img src="../../image/logo.png" alt="Basilisk">
+                <h1>
+                    Trade of <span class="bold">basilisk</span>
+                </h1>
+            </div>
+            <a class="menu category" href="/">
+                <i class="fas fa-th"></i>
+                <span>Category</span>
+            </a>
+            <a class="menu supplier" href="/supplier">
+                <i class="fab fa-amazon"></i>
+                <span>Supplier</span>
+            </a>
+            <a class="menu product" href="/product">
+                <i class="fas fa-box-open"></i>
+                <span>Product</span>
+            </a>
+        </nav>
+        <main>
+            <form class="upsert-form" method="post" action="/content/upsert">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label for="name">Sebuah Text</label>
+                            </td>
+                            <td>
+                                <input type="text" id="name" name="name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="textarea-label">
+                                <label for="description">Sebuah Text Area</label>
+                            </td>
+                            <td>
+                                <textarea id="description" name="description"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Sebuah Checkbox</label>
+                            </td>
+                            <td>
+                                <input type="checkbox">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="rButton">Sebuah Radio Button</label>
+                            </td>
+                            <td>
+                                <input type="radio" name="rButton" id="radioOpt1" value="Option 1">
+                                <label for="radioOpt1">Radio Option 1</label>
+                                <input type="radio" name="rButton" id="radioOpt2" value="Option 2">
+                                <label for="radioOpt2">Radio Option 2</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="aDate">Sebuah Date</label>
+                            </td>
+                            <td>
+                                <input type="date" name="aDate" id="aDate" value="">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="aTime">Sebuah Time</label>
+                            </td>
+                            <td>
+                                <input type="time" name="aTime" id="aTime">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="aDateTime">Sebuah Date Time</label>
+                            </td>
+                            <td>
+                                <input type="datetime-local" name="aDateTime" id="aDateTime">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="aDropdown">Sebuah Dropdown</label>
+                            </td>
+                            <td>
+                                <select name="aDropdown" id="aDropdown">
+                                    <option value="dropdownValue1">Value 1</option>
+                                    <option value="dropdownValue2">Value 2</option>
+                                    <option value="dropdownValue3">Value 3</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" class="blue-button">Submit Content</button>
+            </form>
+        </main>
+        <footer>
+            Copyrights &copy; 2023
+            <span class="author">Boby Widjaja</span>
+            All rights reserved
+        </footer>
+</body>
+</html>

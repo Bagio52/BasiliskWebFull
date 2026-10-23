@@ -1,0 +1,119 @@
+@using Basilisk.Presentation.Web.ViewModels
+@model ProductInsertViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Insert Product</a>
+    </span>
+}
+
+<form method="post" class="upsert-form" asp-action="Insert" asp-controller="Product">
+    <input type="hidden" />
+    <input type="hidden" />
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="Products.Name">
+                    Product Name
+                </label></td>
+                <td>
+                    <input asp-for="Products.Name" type="text">
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.CategoryId">
+                    Product Category
+                </label></td>
+                <td>
+                    <select name="Products.CategoryId" asp-for="Products.CategoryId" asp-items="@ViewBag.Categories">
+                        <option value="">Category...</option>
+
+                        @foreach (var category in Model.Categories)
+                        {
+                            <option value="@category.Value" selected="@category.Selected">
+                                @category.Text
+                            </option>
+                        }
+                    </select>
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.SupplierId">
+                    Product Supplier
+                </label></td>
+                <td>
+                    <select asp-for="Products.SupplierId" asp-items="@ViewBag.Suppliers"></select>
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.Price">
+                    Product Price
+                </label></td>
+                <td>
+                    <input asp-for="Products.Price" type="number" step=".01">
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.Stock">
+                    Product Stock
+                </label></td>
+                <td>
+                    <input asp-for="Products.Stock" type="number">
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.OnOrder">
+                    Product On Order
+                </label></td>
+                <td>
+                    <input asp-for="Products.OnOrder" type="number">
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td><label asp-for="Products.Discontinued">
+                    Product Discontinued
+                </label></td>
+                <td>
+                    <input asp-for="Products.Discontinued" type="checkbox">
+                    <div class="field-validation-error"></div>
+                    <div class="field-validation-error"></div>
+                </td>
+
+                <tr>
+                    <td class="textarea-label"><label asp-for="Products.Description">
+                        Product Description
+                    </label></td>
+                    <td>
+                        <textarea asp-for="Products.Description"></textarea>
+                        <div class="field-validation-error"></div>
+                    </td>
+                </tr>
+
+                <!-- New row for image upload -->
+                <tr>
+                    <td><label asp-for="Products.ImagePath">
+                        Product Image
+                    </label></td>
+                    <td>
+                        <input asp-for="Products.ImagePath" type="file" accept="image/*">
+                        <div class="field-validation-error"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="blue-button" type="submit">Insert Product</button>
+        <a asp-action="Index" class="blue-button">Kembali</a>
+    </form>

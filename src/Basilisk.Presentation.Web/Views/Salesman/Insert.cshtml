@@ -1,0 +1,111 @@
+@using Basilisk.DataAccess.Models.Enums;
+@model SalesmanInsertViewModel
+
+@section breadCrumbs{
+    <span>
+        <a asp-action="Index">Salesman</a> / Insert Salesman
+    </span>
+}
+@* <div @Html.ValidationSummary()></div> *@
+<form asp-action="Insert" class="upsert-form" method="post">
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.EmployeeNumber"></label>
+                </td>
+                <td>
+                    <input type="text" asp-for="Salesman.EmployeeNumber" />
+                    <span asp-validation-for="Salesman.EmployeeNumber"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.FirstName"></label>
+                </td>
+                <td>
+                    <input type="text" asp-for="Salesman.FirstName" placeholder="Masukkan Name Depan"/>
+                    <span asp-validation-for="Salesman.FirstName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.LastName"></label>
+                </td>
+                <td>
+                    <input type="text" asp-for="Salesman.LastName" placeholder="Masukkan Name Belakang"/>
+                    <span asp-validation-for="Salesman.LastName"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.Level"></label>
+                </td>
+                <td>
+                    <select asp-for="Salesman.Level" asp-items="Html.GetEnumSelectList<Level>()">
+                        <option value="">Pick your level</option>
+                    </select>
+                    <span asp-validation-for="Salesman.Level"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.BirthDate"></label>
+                </td>
+                <td>
+                    <input type="date" asp-for="Salesman.BirthDate" />
+                    <span asp-validation-for="Salesman.BirthDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.HiredDate"></label>
+                </td>
+                <td>
+                    <input type="date" asp-for="Salesman.HiredDate" />
+                    <span asp-validation-for="Salesman.HiredDate"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.Address"></label>
+                </td>
+                <td>
+                    @* <textarea asp-for="Salesman.Address" />  gagal*@
+                    <textarea asp-for="Salesman.Address"></textarea>
+                    <span asp-validation-for="Salesman.Address"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.City"></label>
+                </td>
+                <td>
+                    <input asp-for="Salesman.City" />
+                    <span asp-validation-for="Salesman.City"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.Phone"></label>
+                </td>
+                <td>
+                    <input asp-for="Salesman.Phone" />
+                    <span asp-validation-for="Salesman.Phone"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label asp-for="Salesman.SuperiorEmployeeNumber"></label>
+                </td>
+                <td>
+                    <select asp-for="Salesman.SuperiorEmployeeNumber" asp-items="Model.SalesmanDropdown">
+                        <option value="">No Superior</option>
+                    </select>
+                    <span asp-validation-for="Salesman.SuperiorEmployeeNumber"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="blue-button">Submit Salesman</button>
+</form>

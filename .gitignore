@@ -1,0 +1,15 @@
+# Hasil build .NET
+**/bin/
+**/obj/
+
+# File konfigurasi lokal dan rahasia
+**/appsettings.Development.json
+**/secrets.json
+
+# File Visual Studio / VS Code
+.vs/
+.vscode/
+
+# File sistem operasi
+.DS_Store
+Thumbs.db

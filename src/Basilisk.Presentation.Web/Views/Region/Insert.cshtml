@@ -1,0 +1,39 @@
+@using Basilisk.Presentation.Web.ViewModels.Region
+@model RegionInsertViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Insert Region </a>
+    </span>
+}
+
+<form asp-controller="Region" asp-action="Insert" method="post" class="upsert-form">
+
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <label asp-for="Regions.City">City</label>
+                </td>
+                <td>
+                    <input asp-for="Regions.City" type="text" />
+                    <span asp-validation-for="Regions.City" class="field-validation-error"></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="textarea-label">
+                    <label asp-for="Regions.Remark">Remark</label>
+                </td>
+                <td>
+                    <textarea asp-for="Regions.Remark"></textarea>
+                    <span asp-validation-for="Regions.Remark" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <button class="blue-button" type="submit">Insert Region</button>
+
+    <a asp-controller="Region" asp-action="Index" class="blue-button">Kembali</a>
+</form>

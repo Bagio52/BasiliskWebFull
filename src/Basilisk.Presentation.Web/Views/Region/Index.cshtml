@@ -1,0 +1,55 @@
+@using Basilisk.Presentation.Web.Services
+@using Basilisk.Presentation.Web.ViewModels.Region
+@model RegionIndexViewModel
+
+@{
+    ViewData[index: "Title"] = "Region Index";
+}
+
+@section breadCrumbs {
+    <span>Region Index</span>
+}
+
+<section class="grid-container region-index">
+    <form asp-action="Index" method="get" class="filter">
+        <input type="text" name="searchCity" placeholder="City..." value="@ViewBag.searchCity" />
+        <button class="blue-button" type="submit">Search</button>
+        <a asp-action="Index" class="blue-button">Reset</a>
+    </form>
+    <a asp-action="Insert" class="blue-button create-button">Insert New Region</a>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>City</th>
+                <th>Remark</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int no = 1;
+            }
+
+            @foreach (var region in Model.Regions)
+            {
+                <tr>
+                    <td>@no</td>
+                    <td>@region.City</td>
+                    <td>@region.Remark</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@region.Id" class="blue-button"> Edit </a>
+                        <form asp-action="Delete" asp-controller="Region" method="post" style="display: inline"
+                              onsubmit="return confirm('Yakin ingin menghapus Region ini?');">
+                        
+                            <input type="hidden" name="id" value="@region.Id">
+                            <button type="submit" class="blue-button"> Delete </button>
+                        </form>
+                    </td>
+                </tr>
+
+                no++;
+            }
+        </tbody>
+    </table>
+</section>
