@@ -1,0 +1,38 @@
+@using Basilisk.Presentation.Web.ViewModels.Delivery
+@model DeliveryInsertViewModel
+
+@section breadCrumbs{
+    <span>
+        <a asp-action="Index">Index / Insert Delivery</a>
+    </span>
+}
+
+<form asp-action="Insert" method="post" class="upsert-form" asp-controller="Delivery">
+    <table>
+        <tbody>
+            <tr>
+                <td><label for="Delivery.CompanyName">Company Name</label></td>
+                <td>
+                    <input type="text" asp-for="Deliveries.CompanyName">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="textarea-label"><label asp-for="Deliveries.Phone">Phone</label></td>
+                <td>
+                    <input asp-for="Deliveries.Phone" type="number">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Deliveries.Cost">Cost (Rp.)</label></td>
+                <td>
+                    <input type="number" asp-for="Deliveries.Cost">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Insert Delivery</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

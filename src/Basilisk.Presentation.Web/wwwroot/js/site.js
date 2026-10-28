@@ -129,7 +129,7 @@ function fillFormCustomerAddress({address, city}){
     applyDateTimeInput();
     readOnlyPrimaryKeyOnUpdate();
     manageRole();
-    //toggleMenu();
+    toggleMenu();
     //responsiveGridColumn();
     autoFillCustomerAddress();
 }())

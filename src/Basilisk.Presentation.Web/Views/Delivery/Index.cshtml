@@ -1,0 +1,71 @@
+@using Basilisk.Presentation.Web.ViewModels.Delivery
+@model DeliveryIndexViewModel
+
+@{
+    ViewData["Title"] = "Delivery Index";
+}
+
+@section breadCrumbs {
+    <span>Delivery Index</span>
+}
+
+<section class="grid-container delivery-index">
+    <form asp-action="Index" method="get" class="filter">
+        <input type="text" name="searchCompanyName" placeholder="Company Name..." value="@ViewBag.searchCompanyName" />
+        <button class="blue-button" type="submit">Search</button>
+        <a asp-action="Index" class="blue-button">Reset</a>
+    </form>
+    <a asp-action="Insert" class="blue-button create-button">Insert New Delivery</a>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Company Name</th>
+                <th>Phone</th>
+                <th>Cost</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int no = 1;
+            }
+
+            @foreach (var delivery in Model.Deliveries)
+            {
+                <tr>
+                    <td>@no</td>
+                    <td>@delivery.CompanyName</td>
+                    <td>@delivery.Phone</td>
+                    <td>@delivery.Cost.ToString("C", new System.Globalization.CultureInfo("id-ID"))</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@delivery.Id" class="blue-button"><i class="fa-solid fa-pen-to-square"></i></a>
+                        <form asp-action="Delete" asp-controller="Delivery" method="post" style="display: inline"
+                              onsubmit="return confirm('Yakin ingin menghapus ini?');">
+                            
+                            <input type="hidden" name="id" value="@delivery.Id" />
+                            <button type="submit" class="blue-button"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                no++;
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="pagination">
+                        <div>Page @Model.PageNumber of @Model.TotalPages</div>
+                        <div>
+                            @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
+                            {
+                                <a asp-action="Index" asp-route-searchName="@ViewBag.searchCompanyName"
+                                   asp-route-page="@pageNumber" class="number">@pageNumber</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</section>

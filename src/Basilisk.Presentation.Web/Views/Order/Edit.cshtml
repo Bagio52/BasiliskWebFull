@@ -1,0 +1,108 @@
+@using Basilisk.Presentation.Web.ViewModels.Order
+@model OrderIndexViewModel
+
+@{
+    ViewData["Title"] = "Order Index";
+}
+
+@section breadCrumbs {
+    <span>Order Index</span>
+}
+
+<section class="grid-container oorder-index">
+    <form asp-action="Index" method="get" class="filter">
+        <input type="text" name="searchOrder" placeholder="InvoiceNumber..." value="@ViewBag.SearchName" />
+        <select name="customerId">
+            <option value="">No Specific Customer</option>
+
+            @foreach (var customer in Model.Customers)
+            {
+                <option value="@customer.Value" selected="@customer.Selected">
+                    @customer.Text
+                </option>
+            }
+        </select>
+        <select name="salesmanId">
+            <option value="">No Specific Salesman</option>
+
+            @foreach (var salesman in Model.Salesmans)
+            {
+                <option value="@salesman.Value" selected="@salesman">
+                    @salesman.Text
+                </option>
+            }
+        </select>
+
+        <select name="deliveryId">
+            <option value="">No Specific Delivery</option>
+
+            @foreach (var delivery in Model.Deliveries)
+            {
+                <option value="@delivery.Value" selected="@delivery">
+                    @delivery.Text
+                </option>
+            }
+        </select>
+        <button class="blue-button" type="submit">Search</button>
+        <a asp-action="Index" class="blue-button">Reset</a>
+    </form>
+    <a asp-action="Insert" class="blue-button create-button">Insert Order</a>
+    <table>
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Invoice Number</th>
+                <th>Customer</th>
+                <th>Salesman</th>
+                <th>Order Date</th>
+                <th>Delivery</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int no = 1;
+            }
+
+            @foreach (var order in Model.Orders)
+            {
+                <tr>
+                    <td>@no</td>
+                    <td>@order.InvoiceNumber</td>
+                    <td>@order.CompanyName</td>
+                    <td>@($"{order.FirstName} {order.LastName}".Trim())</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.DeliveryCompanyName</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@order.InvoiceNumber" class="blue-button"><i
+                            class="fa-solid fa-trash-can"></i></a>
+                            <form asp-action="Delete" asp-controller="Order" method="post" style="display:inline"
+                                  onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
+
+                                <input type="hidden" name="id" value="@order.InvoiceNumber" />
+                                <button type="submit" class="blue-button"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    no++;
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="7">
+                        <div class="pagination">
+                            <div>Page @Model.PageNumber of @Model.TotalPages</div>
+                            <div>
+                                @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
+                                {
+                                    <a asp-action="Index" asp-route-searchName="@ViewBag.SearchName"
+                                       asp-route-page="@pageNumber" class="number">@pageNumber</a>
+                                }
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>

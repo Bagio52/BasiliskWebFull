@@ -1,0 +1,144 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+@section breadCrumbs{
+    <span>Dashboard</span>
+}
+
+@{
+    var monthlyRevenue = new[]
+    {
+        new { Month = "Jan", Amount = "Rp 18 jt", Percent = 36 },
+        new { Month = "Feb", Amount = "Rp 24 jt", Percent = 48 },
+        new { Month = "Mar", Amount = "Rp 21 jt", Percent = 42 },
+        new { Month = "Apr", Amount = "Rp 32 jt", Percent = 64 },
+        new { Month = "Mei", Amount = "Rp 28 jt", Percent = 56 },
+        new { Month = "Jun", Amount = "Rp 42 jt", Percent = 84 },
+        new { Month = "Jul", Amount = "Rp 35 jt", Percent = 70 },
+        new { Month = "Agu", Amount = "Rp 50 jt", Percent = 100 }
+    };
+
+    var popularCategories = new[]
+    {
+        new { Name = "Elektronik", Orders = 42, Percent = 84 },
+        new { Name = "Peralatan Rumah", Orders = 31, Percent = 62 },
+        new { Name = "Aksesori", Orders = 24, Percent = 48 },
+        new { Name = "Perlengkapan Kantor", Orders = 16, Percent = 32 }
+    };
+}
+
+<section class="dashboard-wrapper">
+    <div class="dashboard-intro">
+        <div>
+            <h1>Ringkasan Dashboard</h1>
+            <p>Pantau aktivitas penjualan dan operasional bisnis Anda.</p>
+        </div>
+        <span class="dashboard-demo-note">Data contoh</span>
+    </div>
+
+    <div class="dashboard-summary">
+        <article class="dashboard-summary-card">
+            <span class="summary-label">Pendapatan</span>
+            <strong>Rp 248.500.000</strong>
+            <span class="summary-detail">Bulan ini</span>
+        </article>
+        <article class="dashboard-summary-card">
+            <span class="summary-label">Total Pesanan</span>
+            <strong>186</strong>
+            <span class="summary-detail">Bulan ini</span>
+        </article>
+        <article class="dashboard-summary-card">
+            <span class="summary-label">Pelanggan</span>
+            <strong>1.284</strong>
+            <span class="summary-detail">Terdaftar</span>
+        </article>
+        <article class="dashboard-summary-card">
+            <span class="summary-label">Produk</span>
+            <strong>342</strong>
+            <span class="summary-detail">Aktif</span>
+        </article>
+    </div>
+
+    <div class="dashboard-content">
+        <section class="dashboard-container revenue-panel">
+            <header class="header">
+                <h2>Pendapatan Bulanan</h2>
+                <span>Januari - Agustus</span>
+            </header>
+            <div class="body">
+                <div class="revenue-chart" role="img" aria-label="Grafik contoh pendapatan bulanan">
+                    @foreach (var item in monthlyRevenue)
+                    {
+                        <div class="revenue-bar-group">
+                            <span class="revenue-amount">@item.Amount</span>
+                            <div class="revenue-bar-track">
+                                <div class="revenue-bar" style="height: @(item.Percent)%"></div>
+                            </div>
+                            <span class="revenue-month">@item.Month</span>
+                        </div>
+                    }
+                </div>
+            </div>
+        </section>
+
+        <section class="dashboard-container category-panel">
+            <header class="header">
+                <h2>Kategori Populer</h2>
+            </header>
+            <div class="body category-list">
+                @foreach (var category in popularCategories)
+                {
+                    <div class="category-item">
+                        <div class="category-item-heading">
+                            <span>@category.Name</span>
+                            <strong>@category.Orders pesanan</strong>
+                        </div>
+                        <div class="category-progress-track">
+                            <div class="category-progress" style="width: @(category.Percent)%"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+
+        <section class="dashboard-container orders-panel">
+            <header class="header">
+                <h2>Pesanan Terbaru</h2>
+                <a asp-controller="Order" asp-action="Index">Lihat semua</a>
+            </header>
+            <div class="body orders-table-wrapper">
+                <table class="dashboard-orders-table">
+                    <thead>
+                        <tr>
+                            <th>Invoice</th>
+                            <th>Pelanggan</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>INV-2026-081</td>
+                            <td>PT Sumber Makmur</td>
+                            <td>28 Agu 2026</td>
+                            <td><span class="order-status status-shipped">Dikirim</span></td>
+                        </tr>
+                        <tr>
+                            <td>INV-2026-080</td>
+                            <td>CV Berkah Jaya</td>
+                            <td>27 Agu 2026</td>
+                            <td><span class="order-status status-processing">Diproses</span></td>
+                        </tr>
+                        <tr>
+                            <td>INV-2026-079</td>
+                            <td>UD Mitra Niaga</td>
+                            <td>26 Agu 2026</td>
+                            <td><span class="order-status status-shipped">Dikirim</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</section>

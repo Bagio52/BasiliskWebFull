@@ -1,0 +1,42 @@
+@using Basilisk.Presentation.Web.ViewModels.Delivery
+@model DeliveryViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Edit Delivery</a>
+    </span>
+}
+
+<form asp-action="Edit" method="post" class="upsert-form" asp-controller="Delivery">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id">
+
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="CompanyName">Company Name</label></td>
+                <td><input asp-for="CompanyName" type="text"></td>
+                <td>
+                    <span asp-validation-for="CompanyName" class="field-validation-error"></span>
+                </td>
+            </tr>
+                
+            <tr>
+                <td><label asp-for="Phone">Phone</label></td>
+                <td><input asp-for="Phone" type="number"></td>
+                <td>
+                    <span asp-validation-for=" Phone" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Cost">Cost (Rp.)</label></td>
+                <td><input asp-for="Cost" type="number"></td>
+                <td>
+                    <span asp-validation-for="Cost" class="field-validation-errot"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Update Delivery</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

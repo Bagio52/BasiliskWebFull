@@ -24,11 +24,17 @@ public class Program
         builder.Services.AddScoped<SupplierService>();
         builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
         builder.Services.AddScoped<ProductService>();
+        builder.Services.AddScoped<IProductRepository, ProductRepository>();
         builder.Services.AddScoped<SalesmanService>();
+        builder.Services.AddScoped<ISalesmanRepository, SalesmanRepository>();
         builder.Services.AddScoped<RegionService>();
         builder.Services.AddScoped<IRegionRepository, RegionRepository>();
         builder.Services.AddScoped<CustomerService>();
         builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+        builder.Services.AddScoped<DeliveryService>();
+        builder.Services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+        builder.Services.AddScoped<OrderService>();
+        builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
         builder.Services.AddControllersWithViews();
 
