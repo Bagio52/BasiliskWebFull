@@ -41,4 +41,6 @@ public class SalesmanViewModel
     
     [Display(Name = "Supperior")]
     public string? SuperiorEmployeeNumber { get; set; }
+    public string FullName => $"{FirstName} {LastName}".Trim();
+    public string? SuperiorFullName { get; set; }
 }

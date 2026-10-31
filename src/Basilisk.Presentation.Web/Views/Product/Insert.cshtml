@@ -6,10 +6,13 @@
         <a asp-action="Index">Index / Insert Product</a>
     </span>
 }
-
-<form method="post" class="upsert-form" asp-action="Insert" asp-controller="Product">
-    <input type="hidden" />
-    <input type="hidden" />
+ 
+<form method="post"
+      class="upsert-form"
+      asp-action="Insert"
+      asp-controller="Product"
+      enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="field-validation-error"></div>
     <table>
         <tbody>
             <tr>
@@ -18,8 +21,7 @@
                 </label></td>
                 <td>
                     <input asp-for="Products.Name" type="text">
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Products.Name" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
@@ -27,18 +29,10 @@
                     Product Category
                 </label></td>
                 <td>
-                    <select name="Products.CategoryId" asp-for="Products.CategoryId" asp-items="@ViewBag.Categories">
+                    <select asp-for="Products.CategoryId" asp-items="Model.Categories">
                         <option value="">Category...</option>
-
-                        @foreach (var category in Model.Categories)
-                        {
-                            <option value="@category.Value" selected="@category.Selected">
-                                @category.Text
-                            </option>
-                        }
                     </select>
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Products.CategoryId" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
@@ -46,9 +40,10 @@
                     Product Supplier
                 </label></td>
                 <td>
-                    <select asp-for="Products.SupplierId" asp-items="@ViewBag.Suppliers"></select>
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <select asp-for="Products.SupplierId" asp-items="Model.Suppliers">
+                        <option value="">Supplier...</option>
+                    </select>
+                    <span asp-validation-for="Products.SupplierId" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
@@ -57,8 +52,7 @@
                 </label></td>
                 <td>
                     <input asp-for="Products.Price" type="number" step=".01">
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Products.Price" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
@@ -67,8 +61,7 @@
                 </label></td>
                 <td>
                     <input asp-for="Products.Stock" type="number">
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Products.Stock" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
@@ -77,8 +70,7 @@
                 </label></td>
                 <td>
                     <input asp-for="Products.OnOrder" type="number">
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Products.OnOrder" class="field-validation-error"></span>
                 </td>
             </tr>
 
@@ -88,8 +80,7 @@
                 </label></td>
                 <td>
                     <input asp-for="Products.Discontinued" type="checkbox">
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Products.Discontinued" class="field-validation-error"></span>
                 </td>
 
                 <tr>
@@ -98,18 +89,17 @@
                     </label></td>
                     <td>
                         <textarea asp-for="Products.Description"></textarea>
-                        <div class="field-validation-error"></div>
+                        <span asp-validation-for="Products.Description" class="field-validation-error"></span>
                     </td>
                 </tr>
 
-                <!-- New row for image upload -->
                 <tr>
-                    <td><label asp-for="Products.ImagePath">
+                    <td><label asp-for="Image">
                         Product Image
                     </label></td>
                     <td>
-                        <input asp-for="Products.ImagePath" type="file" accept="image/*">
-                        <div class="field-validation-error"></div>
+                        <input asp-for="Image" type="file" accept=".jpg,.jpeg,.png,.gif,.webp">
+                        <span asp-validation-for="Image" class="field-validation-error"></span>
                     </td>
                 </tr>
             </tbody>

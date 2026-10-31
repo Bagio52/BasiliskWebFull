@@ -6,6 +6,7 @@ namespace Basilisk.Presentation.Web.ViewModels;
 public class ProductIndexViewModel
 {
     public List<ProductViewModel> Products { get; set; } = new();
+    public string? Name { get; set; }
     public long? CategoryId { get; set; }
     public long? SupplierId { get; set; }
 

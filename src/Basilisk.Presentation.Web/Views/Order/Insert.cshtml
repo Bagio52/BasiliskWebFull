@@ -1,0 +1,100 @@
+@using Basilisk.Presentation.Web.ViewModels.Order
+@model OrderInsertViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Insert Order</a>
+    </span>
+}
+
+<form asp-action="Insert" asp-controller="Order" method="post" class="upsert-form">
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="Order.InvoiceNumber">Invoice Number</label></td>
+                <td>
+                    <input asp-for="Order.InvoiceNumber" />
+                    <span asp-validation-for="Order.InvoiceNumber" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.CustomerId">Customer</label></td>
+                <td>
+                    <select asp-for="Order.CustomerId" asp-items="Model.Customers">
+                        <option value="">Pilih customer...</option>
+                    </select>
+                    <span asp-validation-for="Order.CustomerId" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.SalesEmployeeNumber">Salesman</label></td>
+                <td>
+                    <select asp-for="Order.SalesEmployeeNumber" asp-items="Model.Salesmans">
+                        <option value="">Pilih salesman...</option>
+                    </select>
+                    <span asp-validation-for="Order.SalesEmployeeNumber" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.OrderDate">Order Date</label></td>
+                <td>
+                    <input asp-for="Order.OrderDate" type="date" />
+                    <span asp-validation-for="Order.OrderDate" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.ShippedDate">Shipped Date</label></td>
+                <td>
+                    <input asp-for="Order.ShippedDate" type="date" />
+                    <span asp-validation-for="Order.ShippedDate" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.DueDate">Due Date</label></td>
+                <td>
+                    <input asp-for="Order.DueDate" type="date" />
+                    <span asp-validation-for="Order.DueDate" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.DeliveryId">Delivery</label></td>
+                <td>
+                    <select asp-for="Order.DeliveryId" asp-items="Model.Deliveries">
+                        <option value="">Pilih delivery...</option>
+                    </select>
+                    <span asp-validation-for="Order.DeliveryId" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.DeliveryCost">Delivery Cost</label></td>
+                <td>
+                    <input asp-for="Order.DeliveryCost" type="number" step="0.01" />
+                    <span asp-validation-for="Order.DeliveryCost" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.DestinationAddress">Destination Address</label></td>
+                <td>
+                    <textarea asp-for="Order.DestinationAddress"></textarea>
+                    <span asp-validation-for="Order.DestinationAddress" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.DestinationCity">Destination City</label></td>
+                <td>
+                    <input asp-for="Order.DestinationCity" />
+                    <span asp-validation-for="Order.DestinationCity" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Order.DestinationPostalCode">Destination Postal Code</label></td>
+                <td>
+                    <input asp-for="Order.DestinationPostalCode" />
+                    <span asp-validation-for="Order.DestinationPostalCode" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Insert Order</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

@@ -22,11 +22,24 @@ namespace Basilisk.Presentation.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string? searchName)
+        public IActionResult Index(string? searchName, int page = 1)
         {
             var model = string.IsNullOrWhiteSpace(searchName)
                 ? _service.GetCategories()
                 : _service.SearchCategories(searchName);
+
+            // Mengatur jumlah data tampil
+            const int pageSize = 10;
+            var totalCount = model.Categories.Count;
+            var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)pageSize));
+            page = Math.Clamp(page, 1, totalPages);
+
+            model.Categories = model.Categories
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            model.PageNumber = page;
+            model.TotalPages = totalPages;
 
             ViewBag.SearchName = searchName;
 

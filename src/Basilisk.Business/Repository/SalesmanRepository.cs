@@ -18,9 +18,10 @@ public class SalesmanRepository : ISalesmanRepository
         return _context.Salesmen.ToList();
     }
 
-    public Salesman GetSalesmanById(int id)
+    public Salesman? GetSalesmanById(string employeeNumber)
     {
-        throw new NotImplementedException();
+        return _context.Salesmen
+            .FirstOrDefault(s => s.EmployeeNumber == employeeNumber);
     }
 
     public Salesman AddSalesman(Salesman salesman)
@@ -32,11 +33,21 @@ public class SalesmanRepository : ISalesmanRepository
 
     public Salesman UpdateSalesman(Salesman salesman)
     {
-        throw new NotImplementedException();
+        _context.Salesmen.Update(salesman);
+        _context.SaveChanges();
+        return salesman;
     }
 
-    public Salesman DeleteSalesman(Salesman salesman)
+    public bool DeleteSalesman(string employeeNumber)
     {
-        throw new NotImplementedException();
+        var salesman = GetSalesmanById(employeeNumber);
+        if (salesman == null)
+        {
+            return false;
+        }
+
+        _context.Salesmen.Remove(salesman);
+        _context.SaveChanges();
+        return true;
     }
 }

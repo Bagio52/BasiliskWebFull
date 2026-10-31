@@ -50,12 +50,21 @@ public class CustomerRepository : ICustomerRepository
         return true;
     }
 
-    public IEnumerable<Customer> SearchCustomers(string companyName, string contactName)
+    public IEnumerable<Customer> SearchCustomers(string? companyName, string? contactPerson)
     {
-        return _context.Customers
-            .Where(c => c.CompanyName.Contains(companyName)
-            && c.ContactPerson.Contains(contactName))
-            .ToList();
+        var query = _context.Customers.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(companyName))
+        {
+            query = query.Where(c => c.CompanyName.Contains(companyName));
+        }
+
+        if (!string.IsNullOrWhiteSpace(contactPerson))
+        {
+            query = query.Where(c => c.ContactPerson.Contains(contactPerson));
+        }
+
+        return query.ToList();
     }
 
 }

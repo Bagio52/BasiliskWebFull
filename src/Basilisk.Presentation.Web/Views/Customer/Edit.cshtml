@@ -1,0 +1,60 @@
+@using Basilisk.Presentation.Web.ViewModels.Customer
+@model CustomerViewModel
+
+@section breadCrumbs{
+    <span>
+        <a asp-action="Index">Index / Edit Customer</a>
+    </span>
+}
+
+<form method="post" asp-action="Edit" asp-controller="Customer" class="upsert-form">
+    <input asp-for="Id" type="hidden" />
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="CompanyName">Company Name</label></td>
+                <td>
+                    <input asp-for="CompanyName" type="text">
+                    <span asp-validation-for="CompanyName" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="ContactPerson">Contact Person</label></td>
+                <td>
+                    <input asp-for="ContactPerson" type="text">
+                    <span asp-validation-for="ContactPerson" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Address">Address</label></td>
+                <td>
+                    <textarea asp-for="Address"></textarea>
+                    <span asp-validation-for="Address" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="City">City</label></td>
+                <td>
+                    <input asp-for="City" type="text">
+                    <span asp-validation-for="City" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Phone">Phone</label></td>
+                <td>
+                    <input asp-for="Phone" type="text">
+                    <span asp-validation-for="Phone" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Email">Email</label></td>
+                <td>
+                    <input asp-for="Email" type="text">
+                    <span asp-validation-for="Email" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Update Customer</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</Form>

@@ -1,0 +1,60 @@
+@using Basilisk.Presentation.Web.ViewModels.Customer
+@model CustomerInsertViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Index / Insert Customer</a>
+    </span>
+}
+
+<form asp-action="Insert" asp-controller="Customer" class="upsert-form" method="post">
+    <table>
+
+        <tbody>
+            <tr>
+                <td><label asp-for="Customer.CompanyName"></label></td>
+                <td>
+                    <input type="text" asp-for="Customer.CompanyName">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.ContactPerson"></label></td>
+                <td>
+                    <input type="text" asp-for="Customer.ContactPerson">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.Address"></label></td>
+                <td>
+                    <textarea asp-for="Customer.Address"></textarea>
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.City"></label></td>
+                <td>
+                    <input type="text" asp-for="Customer.City">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.Phone"></label></td>
+                <td>
+                    <input type="text" asp-for="Customer.Phone">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Customer.Email"></label></td>
+                <td>
+                    <input type="text" asp-for="Customer.Email">
+                    <div class="field-validation-error"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit">Insert Customer</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

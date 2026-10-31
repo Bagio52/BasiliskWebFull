@@ -15,13 +15,20 @@ namespace Basilisk.Presentation.Web.Controllers
         private readonly ProductService _service;
         private readonly CategoryService _categoryService;
         private readonly SupplierService _supplierService;
+        private readonly IWebHostEnvironment _environment;
 
-        public ProductController(ILogger<ProductController> logger, ProductService service, CategoryService categoryService, SupplierService supplierService)
+        public ProductController(
+            ILogger<ProductController> logger,
+            ProductService service,
+            CategoryService categoryService,
+            SupplierService supplierService,
+            IWebHostEnvironment environment)
         {
             _logger = logger;
             _service = service;
             _categoryService = categoryService;
             _supplierService = supplierService;
+            _environment = environment;
         }
 
         [HttpGet]
@@ -31,28 +38,25 @@ namespace Basilisk.Presentation.Web.Controllers
             long? supplierId
         )
         {
+            name = name?.Trim();
             var categories = _categoryService.GetAllCategories();
             var suppliers = _supplierService.GetAllSuppliers();
+            var model = _service.GetProducts(name, categoryId, supplierId);
 
-            var model = new ProductIndexViewModel
+            model.Categories = categories.Select(c => new SelectListItem
             {
-                CategoryId = categoryId,
-                SupplierId = supplierId,
-
-                Categories = categories.Select(c => new SelectListItem
+                Value = c.Id.ToString(),
+                Text = c.Name,
+                Selected = c.Id == categoryId
+            }).ToList();
+            model.Suppliers = suppliers
+                .Select(supplier => new SelectListItem
                 {
-                    Value = c.Id.ToString(),
-                    Text = c.Name,
-                    Selected = c.Id == categoryId
-                }).ToList(),
-
-                Suppliers = suppliers.Select(s => new SelectListItem
-                {
-                    Value = s.Id.ToString(),
-                    Text = s.CompanyName,
-                    Selected = s.Id == supplierId
-                }).ToList()
-            };
+                    Value = supplier.Id.ToString(),
+                    Text = supplier.CompanyName,
+                    Selected = supplier.Id == supplierId
+                })
+                .ToList();
 
             // Ambil daftar produk di sini, menggunakan filter
             // name, categoryId, dan supplierId.
@@ -79,22 +83,48 @@ namespace Basilisk.Presentation.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Insert(ProductInsertViewModel model)
+        [RequestSizeLimit(5 * 1024 * 1024)]
+        public async Task<IActionResult> Insert(ProductInsertViewModel model)
         {
+            string? imagePath = null;
+            if (model.Image != null && model.Image.Length > 0)
+            {
+                var extension = Path.GetExtension(model.Image.FileName).ToLowerInvariant();
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                if (!allowedExtensions.Contains(extension))
+                {
+                    ModelState.AddModelError(
+                        nameof(model.Image),
+                        "Format gambar harus JPG, JPEG, PNG, GIF, atau WEBP.");
+                }
+            }
+
             if (!ModelState.IsValid)
             {
-                var categories = _categoryService.GetAllCategories();
-                model.Categories = categories.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Name
-                }).ToList();
-
+                PopulateProductOptions(model);
                 return View(model);
             }
 
-            // Simpan produk baru menggunakan ProductService
-            // _service.InsertProduct(model.Product);
+            if (model.Image != null && model.Image.Length > 0)
+            {
+                var extension = Path.GetExtension(model.Image.FileName).ToLowerInvariant();
+                var fileName = $"{Guid.NewGuid():N}{extension}";
+                var uploadDirectory = Path.Combine(
+                    _environment.WebRootPath,
+                    "uploads",
+                    "products");
+                Directory.CreateDirectory(uploadDirectory);
+
+                var filePath = Path.Combine(uploadDirectory, fileName);
+                await using (var stream = new FileStream(filePath, FileMode.CreateNew))
+                {
+                    await model.Image.CopyToAsync(stream);
+                }
+
+                imagePath = $"/uploads/products/{fileName}";
+            }
+
+            _service.InsertProduct(model.Products, imagePath);
 
             return RedirectToAction(nameof(Index));
         }
@@ -110,7 +140,7 @@ namespace Basilisk.Presentation.Web.Controllers
             }
 
             var categories = _categoryService.GetAllCategories();
-            
+
             return View(new ProductInsertViewModel
             {
                 Products = model,
@@ -160,6 +190,27 @@ namespace Basilisk.Presentation.Web.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private void PopulateProductOptions(ProductInsertViewModel model)
+        {
+            model.Categories = _categoryService.GetAllCategories()
+                .Select(category => new SelectListItem
+                {
+                    Value = category.Id.ToString(),
+                    Text = category.Name,
+                    Selected = category.Id == model.Products.CategoryId
+                })
+                .ToList();
+
+            model.Suppliers = _supplierService.GetAllSuppliers()
+                .Select(supplier => new SelectListItem
+                {
+                    Value = supplier.Id.ToString(),
+                    Text = supplier.CompanyName,
+                    Selected = supplier.Id == model.Products.SupplierId
+                })
+                .ToList();
         }
     }
 }

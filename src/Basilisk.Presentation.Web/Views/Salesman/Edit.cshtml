@@ -1,0 +1,97 @@
+@using Basilisk.DataAccess.Models.Enums
+@using Basilisk.Presentation.Web.ViewModels
+@model SalesmanInsertViewModel
+
+@section breadCrumbs {
+    <span>
+        <a asp-action="Index">Salesman</a> / Edit Salesman
+    </span>
+}
+
+<form asp-action="Edit"
+      asp-route-employeeNumber="@Model.Salesman.EmployeeNumber"
+      class="upsert-form"
+      method="post">
+    <input type="hidden" name="employeeNumber" value="@Model.Salesman.EmployeeNumber" />
+    <table>
+        <tbody>
+            <tr>
+                <td><label asp-for="Salesman.EmployeeNumber"></label></td>
+                <td>
+                    <input asp-for="Salesman.EmployeeNumber" readonly />
+                    <span asp-validation-for="Salesman.EmployeeNumber" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.FirstName"></label></td>
+                <td>
+                    <input asp-for="Salesman.FirstName" />
+                    <span asp-validation-for="Salesman.FirstName" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.LastName"></label></td>
+                <td>
+                    <input asp-for="Salesman.LastName" />
+                    <span asp-validation-for="Salesman.LastName" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.Level"></label></td>
+                <td>
+                    <select asp-for="Salesman.Level" asp-items="Html.GetEnumSelectList<Level>()">
+                        <option value="">Pick your level</option>
+                    </select>
+                    <span asp-validation-for="Salesman.Level" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.BirthDate"></label></td>
+                <td>
+                    <input asp-for="Salesman.BirthDate" type="date" />
+                    <span asp-validation-for="Salesman.BirthDate" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.HiredDate"></label></td>
+                <td>
+                    <input asp-for="Salesman.HiredDate" type="date" />
+                    <span asp-validation-for="Salesman.HiredDate" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.Address"></label></td>
+                <td>
+                    <textarea asp-for="Salesman.Address"></textarea>
+                    <span asp-validation-for="Salesman.Address" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.City"></label></td>
+                <td>
+                    <input asp-for="Salesman.City" />
+                    <span asp-validation-for="Salesman.City" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.Phone"></label></td>
+                <td>
+                    <input asp-for="Salesman.Phone" />
+                    <span asp-validation-for="Salesman.Phone" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Salesman.SuperiorEmployeeNumber"></label></td>
+                <td>
+                    <select asp-for="Salesman.SuperiorEmployeeNumber"
+                            asp-items="Model.SalesmanDropdown">
+                        <option value="">No Superior</option>
+                    </select>
+                    <span asp-validation-for="Salesman.SuperiorEmployeeNumber" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="blue-button">Update Salesman</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

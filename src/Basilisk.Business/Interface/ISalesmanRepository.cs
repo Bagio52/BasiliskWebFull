@@ -6,8 +6,8 @@ namespace Basilisk.Business.Interface;
 public interface ISalesmanRepository
 {
     List<Salesman> GetAllSalesman();
-    Salesman GetSalesmanById(int id);
+    Salesman GetSalesmanById(string employeeNumber);
     Salesman AddSalesman(Salesman salesman);
     Salesman UpdateSalesman(Salesman salesman);
-    Salesman DeleteSalesman(Salesman salesman);
+    bool DeleteSalesman(string employeeNumber);
 }

@@ -35,21 +35,35 @@
                     <td>@category.Name</td>
                     <td>@category.Description</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@category.Id" class="blue-button"> Edit </a>
-                        <form asp-action="Delete" asp-controller="Category" method="post" style="display:inline"
-                              onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
+                        <a asp-action="Edit" asp-route-id="@category.Id" class="blue-button"><i
+                            class="fa-solid fa-pen-to-square"></i></a>
+                            <form asp-action="Delete" asp-controller="Category" method="post" style="display:inline"
+                                  onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
 
-                            <input type="hidden" name="id" value="@category.Id" />
-                            <button type="submit" class="blue-button"> Delete </button>
-                        </form>
+                                <input type="hidden" name="id" value="@category.Id" />
+                                <button type="submit" class="blue-button"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    no++;
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <div class="pagination">
+                            <div>Page @Model.PageNumber of @Model.TotalPages</div>
+                            <div>
+                                @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
+                                {
+                                    <a asp-action="Index" asp-route-searchName="@ViewBag.SearchName"
+                                       asp-route-page="@pageNumber" class="number">@pageNumber</a>
+                                }
+                            </div>
+                        </div>
                     </td>
                 </tr>
-
-                no++;
-            }
-        </tbody>
-        <tfoot>
-            
-        </tfoot>
-    </table>
-</section>
+            </tfoot>
+        </table>
+    </section>

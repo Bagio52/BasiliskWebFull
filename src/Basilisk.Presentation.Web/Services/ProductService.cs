@@ -13,28 +13,29 @@ public class ProductService
         _productRepository = productRepository;
     }
  
-    public ProductIndexViewModel GetProducts()
+    public ProductIndexViewModel GetProducts(
+        string? name = null,
+        long? categoryId = null,
+        long? supplierId = null)
     {
+        var products = _productRepository.GetAllProduct()
+            .Where(p => string.IsNullOrWhiteSpace(name) ||
+                p.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+            .Where(p => !categoryId.HasValue || p.CategoryId == categoryId.Value)
+            .Where(p => !supplierId.HasValue || p.SupplierId == supplierId.Value)
+            .Select(MapProduct)
+            .ToList();
+
         return new ProductIndexViewModel()
         {
-            Products = _productRepository.GetAllProduct()
-            .Select(p => new ProductViewModel()
-            {
-                Id = p.Id,
-                Name = p.Name,
-                SupplierId = p.SupplierId,
-                CategoryId = p.CategoryId,
-                Description = p.Description,
-                Price = p.Price,
-                Stock = p.Stock,
-                OnOrder = p.OnOrder,
-                Discontinued = p.Discontinue,
-                ImagePath = p.ImagePath
-            }).ToList()
+            Name = name,
+            CategoryId = categoryId,
+            SupplierId = supplierId,
+            Products = products
         };
     }
 
-    public void InsertProduct(ProductViewModel vm)
+    public void InsertProduct(ProductViewModel vm, string? imagePath = null)
     {
         _productRepository.AddProduct(new Product
         {
@@ -46,7 +47,7 @@ public class ProductService
             Stock = vm.Stock,
             OnOrder = vm.OnOrder,
             Discontinue = vm.Discontinued,
-            ImagePath = null
+            ImagePath = imagePath
         });
     }
 
@@ -108,20 +109,27 @@ public class ProductService
         {
             Products = _productRepository
                 .SearchProducts(name)
-                .Select(p => new ProductViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    SupplierId = p.SupplierId,
-                    CategoryId = p.CategoryId,
-                    Description = p.Description,
-                    Price = p.Price,
-                    Stock = p.Stock,
-                    OnOrder = p.OnOrder,
-                    Discontinued = p.Discontinue,
-                    ImagePath = p.ImagePath
-                })
+                .Select(MapProduct)
                 .ToList()
+        };
+    }
+
+    private static ProductViewModel MapProduct(Product product)
+    {
+        return new ProductViewModel
+        {
+            Id = product.Id,
+            Name = product.Name,
+            SupplierId = product.SupplierId,
+            SupplierName = product.Supplier?.CompanyName,
+            CategoryId = product.CategoryId,
+            CategoryName = product.Category?.Name,
+            Description = product.Description,
+            Price = product.Price,
+            Stock = product.Stock,
+            OnOrder = product.OnOrder,
+            Discontinued = product.Discontinue,
+            ImagePath = product.ImagePath
         };
     }
 }

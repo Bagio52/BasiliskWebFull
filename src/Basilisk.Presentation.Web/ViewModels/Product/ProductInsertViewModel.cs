@@ -8,5 +8,6 @@ public class ProductInsertViewModel
     public ProductViewModel Products { get; set; }
     public List<SelectListItem> Categories { get; set; } = new();
     public List<SelectListItem> Suppliers { get; set; } = new();
+    public IFormFile? Image { get; set; }
 
 }

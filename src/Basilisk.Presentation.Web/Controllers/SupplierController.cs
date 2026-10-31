@@ -21,7 +21,8 @@ public class SupplierController : Controller
     public IActionResult Index(
         string? searchCompanyName,
         string? searchContactPerson,
-        string? searchJobTitle)
+        string? searchJobTitle,
+        int page = 1)
     {
         var companyName = searchCompanyName?.Trim();
         var contactPerson = searchContactPerson?.Trim();
@@ -36,6 +37,17 @@ public class SupplierController : Controller
                 contactPerson ?? string.Empty,
                 jobTitle ?? string.Empty)
             : _service.GetSuppliers();
+
+        const int pageSize = 10;
+        var totalCount = model.Suppliers.Count;
+        var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)pageSize));
+        page = Math.Clamp(page, 1, totalPages);
+        model.Suppliers = model.Suppliers
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+        model.PageNumber = page;
+        model.TotalPages = totalPages;
 
         ViewBag.SearchCompanyName = searchCompanyName;
         ViewBag.SearchContactPerson = searchContactPerson;

@@ -4,6 +4,7 @@ using Basilisk.Presentation.Web.ViewModels.Delivery;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Basilisk.Presentation.Web.Controllers;
+
 [Route("[controller]/[action]")]
 public class DeliveryController : Controller
 {
@@ -24,16 +25,16 @@ public class DeliveryController : Controller
             : _service.SearchDeliveries(searchCompanyName);
 
         const int pageSize = 10;
-            var totalCount = model.Deliveries.Count;
-            var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)pageSize));
-            page = Math.Clamp(page, 1, totalPages);
+        var totalCount = model.Deliveries.Count;
+        var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)pageSize));
+        page = Math.Clamp(page, 1, totalPages);
 
-            model.Deliveries = model.Deliveries
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToList();
-            model.PageNumber = page;
-            model.TotalPages = totalPages;
+        model.Deliveries = model.Deliveries
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+        model.PageNumber = page;
+        model.TotalPages = totalPages;
 
         ViewBag.SearchCompanyName = searchCompanyName;
 
@@ -58,7 +59,7 @@ public class DeliveryController : Controller
         }
 
         _service.InsertDelivery(model.Deliveries);
-        
+
         return RedirectToAction(nameof(Index));
     }
 

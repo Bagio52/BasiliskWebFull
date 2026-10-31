@@ -95,12 +95,12 @@ public class CustomerService
         return _customerRepository.DeleteCustomer(id);
     }
 
-    public CustomerIndexViewModel SearchCustomer(string companyName, string contactName)
+    public CustomerIndexViewModel SearchCustomer(string? companyName, string? contactPerson)
     {
         return new CustomerIndexViewModel
         {
             Customers = _customerRepository
-                .SearchCustomers(companyName, contactName)
+                .SearchCustomers(companyName, contactPerson)
                 .Select(c => new CustomerViewModel
                 {
                     Id = c.Id,
@@ -114,5 +114,10 @@ public class CustomerService
                 })
                 .ToList()
         };
+    }
+
+    public List<Customer> GetAllCustomers()
+    {
+        return _customerRepository.GetAllCustomers();
     }
 }

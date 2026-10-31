@@ -10,5 +10,5 @@ public interface ICustomerRepository
     Customer AddCustomer(Customer customer);
     Customer UpdateCustomer(Customer customer); 
     bool DeleteCustomer(long id);
-    IEnumerable<Customer> SearchCustomers(string companyName, string contactName);
+    IEnumerable<Customer> SearchCustomers(string? companyName, string? contactPerson);
 }

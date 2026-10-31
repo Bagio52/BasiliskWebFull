@@ -9,8 +9,7 @@ public class OrderIndexViewModel
 
     // Selected Item
     public long? CustomerId { get; set; }
-    public string? FirstName { get; set; }
-    public string? LastName { get; set; }
+    public string? EmployeeNumber { get; set; }
     public long? DeliveryId { get; set; }
     public List<SelectListItem> Customers { get; set; } = new();
     public List<SelectListItem> Salesmans { get; set; } = new();

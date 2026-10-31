@@ -38,18 +38,35 @@
                     <td>@region.City</td>
                     <td>@region.Remark</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@region.Id" class="blue-button"> Edit </a>
-                        <form asp-action="Delete" asp-controller="Region" method="post" style="display: inline"
-                              onsubmit="return confirm('Yakin ingin menghapus Region ini?');">
+                        <a asp-action="Edit" asp-route-id="@region.Id" class="blue-button">
+                            <i class="fa-solid fa-pen-to-square"></i></a>
+                            <form asp-action="Delete" asp-controller="Region" method="post" style="display: inline"
+                                  onsubmit="return confirm('Yakin ingin menghapus Region ini?');">
                         
-                            <input type="hidden" name="id" value="@region.Id">
-                            <button type="submit" class="blue-button"> Delete </button>
-                        </form>
+                                <input type="hidden" name="id" value="@region.Id">
+                                <button type="submit" class="blue-button"><i class="fa-solid fa-trash-can"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    no++;
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">
+                        <div class="pagination">
+                            <div>Page @Model.PageNumber of @Model.TotalPages</div>
+                            <div>
+                                @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
+                                {
+                                    <a asp-action="Index" asp-route-searchName="@ViewBag.SearchCity"
+                                       asp-route-page="@pageNumber" class="number">@pageNumber</a>
+                                }
+                            </div>
+                        </div>
                     </td>
                 </tr>
-
-                no++;
-            }
-        </tbody>
-    </table>
-</section>
+            </tfoot>
+        </table>
+    </section>

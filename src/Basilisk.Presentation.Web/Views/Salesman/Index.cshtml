@@ -1,14 +1,103 @@
-@model ProductIndexViewModel
+@using Basilisk.Presentation.Web.ViewModels.Salesman
+@model SalesmanIndexViewModel
+
 @{
-    ViewData[index: "Title"] = "Salesman Index";
+    ViewData["Title"] = "Salesman Index";
 }
 
-@section breadCrumbs{
+@section breadCrumbs {
     <span>Salesman Index</span>
 }
 
-<section>
-    <div>
-        <h1>Hallo Salesman</h1>
-    </div>
+<section class="grid-container salesman-index">
+    <form asp-action="Index" method="get" class="filter">
+        <input type="text" name="employeeNumber" placeholder="Employee Number..." value="@Model.EmployeeNumber" />
+        <input type="text" name="fullName" placeholder="Full Name..." value="@Model.FullName" />
+        <select name="level">
+            <option value="">All Levels</option>
+            @foreach (var item in Model.Levels)
+            {
+                <option value="@item.Value" selected="@item.Selected">@item.Text</option>
+            }
+        </select>
+        <input type="text" name="superiorSearch" placeholder="Superior Name..." value="@Model.SuperiorSearch" />
+        <button class="blue-button" type="submit">Search</button>
+        <a asp-action="Index" class="blue-button">Reset</a>
+    </form>
+
+    <a asp-action="Insert" class="blue-button create-button">Insert New Salesman</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Number</th>
+                <th>Full Name</th>
+                <th>Level</th>
+                <th>Superior</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Salesmans.Count == 0)
+            {
+                <tr>
+                    <td colspan="5">No salesmen found.</td>
+                </tr>
+            }
+            else
+            {
+                @foreach (var salesman in Model.Salesmans)
+                {
+                    <tr>
+                        <td>@salesman.EmployeeNumber</td>
+                        <td>@salesman.FullName</td>
+                        <td>@salesman.Level?.ToString().Replace('_', ' ')</td>
+                        <td>
+                            @if (salesman.SuperiorEmployeeNumber != null)
+                            {
+                                @salesman.SuperiorFullName
+                                <span>(@salesman.SuperiorEmployeeNumber)</span>
+                            }
+                            else
+                            {
+                                <span>-</span>
+                            }
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a asp-action="Edit" asp-route-employeeNumber="@salesman.EmployeeNumber" class="blue-button">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                                <form asp-action="Delete" method="post" style="display:inline"
+                                      onsubmit="return confirm('Hapus salesman ini?');">
+                                    <input type="hidden" name="employeeNumber" value="@salesman.EmployeeNumber" />
+                                    <button type="submit" class="blue-button">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="5">
+                    <div class="pagination">
+                        <div>Page @Model.PageNumber of @Model.TotalPages</div>
+                        <div>
+                            @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
+                            {
+                                <a asp-action="Index" asp-route-employeeNumber="@Model.EmployeeNumber"
+                                   asp-route-fullName="@Model.FullName" asp-route-level="@Model.Level"
+                                   asp-route-superiorSearch="@Model.SuperiorSearch" asp-route-page="@pageNumber"
+                                   class="number">@pageNumber</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </section>

@@ -6,7 +6,7 @@
     </span>
 }
 
-<form method="post" class="upsert-form" asp-action="Edit" asp-controller="Categories">
+<form method="post" class="upsert-form" asp-action="Edit" asp-controller="Category">
     
     @Html.AntiForgeryToken()
     <input asp-for="Id" type="hidden" />
@@ -15,15 +15,18 @@
         <tbody>
             <tr>
                 <td> <label asp-for="Name">Category Name*</label> </td>
-                <td> <input asp-for="Name" type="text" /> <span asp-validation-for="Name"
-                                                                    class="field-validation-error"></span> </td>
-                </tr>
-                <tr>
-                    <td class="textarea-label"> <label asp-for="Description"> Category Description </label> </td>
-                    <td> <textarea asp-for="Description"></textarea> <span asp-validation-for="Description"
-                                                                               class="field-validation-error"></span> </td>
-                    </tr>
-                </tbody>
-            </table> <button class="blue-button" type="submit"> Update Category </button> <a asp-action="Index"
-                                                                                             class="blue-button">Kembali</a>
-        </form>
+                <td> <input asp-for="Name" type="text" />
+                    <span asp-validation-for="Name" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="textarea-label"> <label asp-for="Description"> Category Description </label> </td>
+                <td> <textarea asp-for="Description"></textarea>
+                    <span asp-validation-for="Description" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="blue-button" type="submit"> Update Category </button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

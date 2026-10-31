@@ -54,7 +54,8 @@ public class Program
 
         app.MapControllerRoute(
             name: "Default",
-            pattern: "{controller=Home}/{action=Index}/{id}"
+            // pattern: "{controller=Home}/{action=Index}/{id}"
+            pattern: "{controller=Dashboard}/{action=Index}"
         );
 
         app.Run();

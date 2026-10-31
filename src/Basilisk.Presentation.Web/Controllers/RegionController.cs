@@ -19,11 +19,25 @@ public class RegionController : Controller
     }
 
     [HttpGet]
-    public IActionResult Index(string? searchCity)
+    public IActionResult Index(string? searchCity, int page = 1)
     {
         var model = string.IsNullOrWhiteSpace(searchCity)
             ? _service.GetRegion()
             : _service.SearchRegionByCity(searchCity);
+
+        // Mengatur jumlah data tampil
+        const int pageSize = 10;
+            var totalCount = model.Regions.Count;
+            var totalPages = Math.Max(1, (int)Math.Ceiling(totalCount / (double)pageSize));
+            page = Math.Clamp(page, 1, totalPages);
+
+            model.Regions = model.Regions
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+            model.PageNumber = page;
+            model.TotalPages = totalPages;
+
 
         ViewBag.SearchCity = searchCity;
 
