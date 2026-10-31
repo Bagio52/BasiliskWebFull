@@ -1,4 +1,4 @@
-@model ProductViewModel;
+@model ProductInsertViewModel
 
 @section breadCrumbs {
     <span>
@@ -7,24 +7,71 @@
 }
 
 <form method="post" class="upsert-form" asp-action="Edit" asp-controller="Product">
-    @Html.AntiForgeryToken()
-    <input asp-for="Id" type="hidden" />
-
+    <input asp-for="Products.Id" type="hidden" />
     <table>
         <tbody>
             <tr>
-                <td> <label asp-for="Name">Product Name*</label> </td>
-                <td> <input asp-for="Name" type="text" />
-                    <span asp-validation-for="Name" class="field-validation-error"></span>
+                <td><label asp-for="Products.Name">Product Name*</label></td>
+                <td>
+                    <input asp-for="Products.Name" type="text" />
+                    <span asp-validation-for="Products.Name" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
-                <td class="textarea-label"> <label asp-for="Description"> Product Description </label> </td>
-                <td> <textarea asp-for="Description"></textarea>
-                    <span asp-validation-for="Description" class="field-validation-error"></span>
+                <td><label asp-for="Products.CategoryId">Product Category*</label></td>
+                <td>
+                    <select asp-for="Products.CategoryId" asp-items="Model.Categories">
+                        <option value="">Category...</option>
+                    </select>
+                    <span asp-validation-for="Products.CategoryId" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.SupplierId">Product Supplier</label></td>
+                <td>
+                    <select asp-for="Products.SupplierId" asp-items="Model.Suppliers">
+                        <option value="">No supplier</option>
+                    </select>
+                    <span asp-validation-for="Products.SupplierId" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.Price">Product Price*</label></td>
+                <td>
+                    <input asp-for="Products.Price" type="number" step="0.01" />
+                    <span asp-validation-for="Products.Price" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.Stock">Product Stock</label></td>
+                <td>
+                    <input asp-for="Products.Stock" type="number" />
+                    <span asp-validation-for="Products.Stock" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.OnOrder">Product On Order</label></td>
+                <td>
+                    <input asp-for="Products.OnOrder" type="number" />
+                    <span asp-validation-for="Products.OnOrder" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Products.Discontinued">Product Discontinued</label></td>
+                <td>
+                    <input asp-for="Products.Discontinued" type="checkbox" />
+                    <span asp-validation-for="Products.Discontinued" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="textarea-label"><label asp-for="Products.Description">Product Description</label></td>
+                <td>
+                    <textarea asp-for="Products.Description"></textarea>
+                    <span asp-validation-for="Products.Description" class="field-validation-error"></span>
                 </td>
             </tr>
         </tbody>
-    </table> <button class="blue-button" type="submit"> Update Product </button>
-    <a asp-action="Index" class=" blue-button">Kembali</a>
+    </table>
+    <button class="blue-button" type="submit">Update Product</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
 </form>

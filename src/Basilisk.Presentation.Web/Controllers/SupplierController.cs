@@ -66,6 +66,7 @@ public class SupplierController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Insert(SupplierInsertViewModel model)
     {
         if (!ModelState.IsValid)
@@ -91,6 +92,7 @@ public class SupplierController : Controller
 
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Edit(SupplierViewModel model)
     {
         if (!ModelState.IsValid)

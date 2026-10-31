@@ -8,12 +8,11 @@
 }
 
 <form asp-action="Edit" asp-controller="Order" method="post" class="upsert-form">
-    <input asp-for="Order.InvoiceNumber" type="hidden" />
     <table>
         <tbody>
             <tr>
                 <td><label asp-for="Order.InvoiceNumber">Invoice Number</label></td>
-                <td><input asp-for="Order.InvoiceNumber" disabled /></td>
+                <td><input asp-for="Order.InvoiceNumber" readonly /></td>
             </tr>
             <tr>
                 <td><label asp-for="Order.CustomerId">Customer</label></td>

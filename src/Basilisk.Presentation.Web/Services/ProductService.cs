@@ -91,7 +91,10 @@ public class ProductService
         product.Stock = vm.Stock;
         product.OnOrder = vm.OnOrder;
         product.Discontinue = vm.Discontinued;
-        product.ImagePath = vm.ImagePath;
+        if (vm.ImagePath != null)
+        {
+            product.ImagePath = vm.ImagePath;
+        }
 
         _productRepository.UpdateProduct(product);
 

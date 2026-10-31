@@ -48,6 +48,14 @@ public class SupplierRepository : ISupplierRepository
             return false;
         }
 
+        var relatedProducts = _context.Products
+            .Where(product => product.SupplierId == id)
+            .ToList();
+        foreach (var product in relatedProducts)
+        {
+            product.SupplierId = null;
+        }
+
         _context.Suppliers.Remove(supplier);
         _context.SaveChanges();
 

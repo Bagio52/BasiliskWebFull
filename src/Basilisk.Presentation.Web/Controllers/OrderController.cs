@@ -99,10 +99,13 @@ public class OrderController : Controller
     [HttpGet]
     public IActionResult Insert()
     {
-        return View(new OrderInsertViewModel
+        var model = new OrderInsertViewModel
         {
             Order = new OrderViewModel()
-        });
+        };
+
+        PopulateOrderOptions(model);
+        return View(model);
     }
 
     [HttpPost]
@@ -110,6 +113,7 @@ public class OrderController : Controller
     {
         if (!ModelState.IsValid)
         {
+            PopulateOrderOptions(model);
             return View(model);
         }
 
@@ -121,25 +125,32 @@ public class OrderController : Controller
     [HttpGet]
     public IActionResult Edit(string invoiceNumber)
     {
-        var model = _service.GetOrderById(invoiceNumber);
+        var order = _service.GetOrderById(invoiceNumber);
 
-        if (model == null)
+        if (order == null)
         {
             return NotFound();
         }
+
+        var model = new OrderInsertViewModel
+        {
+            Order = order
+        };
+        PopulateOrderOptions(model);
 
         return View(model);
     }
 
     [HttpPost]
-    public IActionResult Edit(OrderViewModel model)
+    public IActionResult Edit(OrderInsertViewModel model)
     {
         if (!ModelState.IsValid)
         {
+            PopulateOrderOptions(model);
             return View(model);
         }
 
-        var updated = _service.UpdateOrder(model);
+        var updated = _service.UpdateOrder(model.Order);
 
         if (!updated)
         {

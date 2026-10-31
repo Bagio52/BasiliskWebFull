@@ -6,9 +6,7 @@
     </span>
 }
 
-<form asp-action="Edit" method="post" asp-controller="Supplier" class="upsert-form">
-    
-    @Html.AntiForgeryToken()
+<form asp-action="Edit" asp-controller="Supplier" method="post" class="upsert-form">
     <input asp-for="Id" type="hidden" />
     <table>
         <tbody>
@@ -16,10 +14,44 @@
                 <td><label asp-for="CompanyName">Company Name*</label></td>
                 <td>
                     <input asp-for="CompanyName" type="text" />
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="CompanyName" class="field-validation-error"></span>
                 </td>
-
-                </tr>
-            </tbody>
-        </form>
-
+            </tr>
+            <tr>
+                <td><label asp-for="ContactPerson">Contact Person*</label></td>
+                <td>
+                    <input asp-for="ContactPerson" type="text" />
+                    <span asp-validation-for="ContactPerson" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="JobTitle">Job Title*</label></td>
+                <td>
+                    <input asp-for="JobTitle" type="text" />
+                    <span asp-validation-for="JobTitle" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Address">Address</label></td>
+                <td><input asp-for="Address" type="text" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="City">City</label></td>
+                <td><input asp-for="City" type="text" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Phone">Phone</label></td>
+                <td><input asp-for="Phone" type="text" /></td>
+            </tr>
+            <tr>
+                <td><label asp-for="Email">Email</label></td>
+                <td>
+                    <input asp-for="Email" type="email" />
+                    <span asp-validation-for="Email" class="field-validation-error"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" class="blue-button">Update Supplier</button>
+    <a asp-action="Index" class="blue-button">Kembali</a>
+</form>

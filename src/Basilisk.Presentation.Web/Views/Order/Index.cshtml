@@ -9,104 +9,158 @@
     <span>Order Index</span>
 }
 
-<section class="grid-container oorder-index">
-    <form asp-action="Index" method="get" class="filter">
-        <input type="text" name="invoiceNumber" placeholder="InvoiceNumber..." value="@ViewBag.InvoiceNumber" />
-        <select name="customerId">
-            <option value="">No Specific Customer</option>
+<section class="grid-container order-index">
+    <div class="order-index-header">
+        <div>
+            <span class="order-index-eyebrow">Order management</span>
+            <h1>Orders</h1>
+            <p>Review and manage customer orders.</p>
+        </div>
+        <a asp-action="Insert" class="blue-button order-create-button">
+            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+            <span>New Order</span>
+        </a>
+    </div>
 
-            @foreach (var customer in Model.Customers)
-            {
-                <option value="@customer.Value" selected="@customer.Selected">
-                    @customer.Text
-                </option>
-            }
-        </select>
-        <select name="employeeNumber">
-            <option value="">No Specific Salesman</option>
-
-            @foreach (var salesman in Model.Salesmans)
-            {
-                <option value="@salesman.Value" selected="@salesman.Selected">
-                    @salesman.Text
-                </option>
-            }
-        </select>
-
-        <select name="deliveryId">
-            <option value="">No Specific Delivery</option>
-
-            @foreach (var delivery in Model.Deliveries)
-            {
-                <option value="@delivery.Value" selected="@delivery.Selected">
-                    @delivery.Text
-                </option>
-            }
-        </select>
-        <button class="blue-button" type="submit">Search</button>
-        <a asp-action="Index" class="blue-button">Reset</a>
+    <form asp-action="Index" method="get" class="filter order-filter">
+        <label class="order-filter-field">
+            <span>Invoice number</span>
+            <input type="text" name="invoiceNumber" placeholder="Search invoice..."
+                   value="@ViewBag.InvoiceNumber" />
+        </label>
+        <label class="order-filter-field">
+            <span>Customer</span>
+            <select name="customerId">
+                <option value="">All customers</option>
+                @foreach (var customer in Model.Customers)
+                {
+                    <option value="@customer.Value" selected="@customer.Selected">@customer.Text</option>
+                }
+            </select>
+        </label>
+        <label class="order-filter-field">
+            <span>Salesman</span>
+            <select name="employeeNumber">
+                <option value="">All salesmen</option>
+                @foreach (var salesman in Model.Salesmans)
+                {
+                    <option value="@salesman.Value" selected="@salesman.Selected">@salesman.Text</option>
+                }
+            </select>
+        </label>
+        <label class="order-filter-field">
+            <span>Delivery</span>
+            <select name="deliveryId">
+                <option value="">All delivery companies</option>
+                @foreach (var delivery in Model.Deliveries)
+                {
+                    <option value="@delivery.Value" selected="@delivery.Selected">@delivery.Text</option>
+                }
+            </select>
+        </label>
+        <div class="order-filter-actions">
+            <button class="blue-button" type="submit">
+                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                <span>Search</span>
+            </button>
+            <a asp-action="Index" class="order-reset-button">Reset filters</a>
+        </div>
     </form>
-    <a asp-action="Insert" class="blue-button create-button">Insert Order</a>
-    <table>
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Invoice Number</th>
-                <th>Customer</th>
-                <th>Salesman</th>
-                <th>Order Date</th>
-                <th>Delivery</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                int no = 1;
-            }
 
-            @foreach (var order in Model.Orders)
-            {
+    <div class="order-table-wrap">
+        <table class="order-table">
+            <thead>
                 <tr>
-                    <td>@no</td>
-                    <td>@order.InvoiceNumber</td>
-                    <td>@order.CompanyName</td>
-                    <td>@($"{order.FirstName} {order.LastName}".Trim())</td>
-                    <td>@order.OrderDate</td>
-                    <td>@order.DeliveryCompanyName</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-invoiceNumber="@order.InvoiceNumber" class="blue-button">
-                            <i class="fa-solid fa-pen-to-square"></i></a>
-                            <form asp-action="Delete" asp-controller="Order" method="post" style="display:inline"
-                                  onsubmit="return confirm('Yakin ingin menghapus kategori ini?');">
-
-                                <input type="hidden" name="invoiceNumber" value="@order.InvoiceNumber" />
-                                <button type="submit" class="blue-button"><i class="fa-solid fa-trash-can"></i></button>
-                            </form>
+                    <th>No.</th>
+                    <th>Invoice</th>
+                    <th>Customer</th>
+                    <th>Salesman</th>
+                    <th>Order date</th>
+                    <th>Due date</th>
+                    <th>Delivery</th>
+                    <th class="order-actions-heading">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Orders.Count == 0)
+                {
+                    <tr>
+                        <td colspan="8">
+                            <div class="order-empty-state">
+                                <span class="order-empty-icon"><i class="fa-solid fa-box-open" aria-hidden="true"></i></span>
+                                <strong>No orders found</strong>
+                                <span>Try changing the filters or create a new order.</span>
+                            </div>
                         </td>
                     </tr>
-
-                    no++;
+                }
+                else
+                {
+                    var no = (Model.PageNumber - 1) * 10 + 1;
+                    @foreach (var order in Model.Orders)
+                    {
+                        <tr>
+                            <td data-label="No."><span class="order-row-number">@no</span></td>
+                            <td data-label="Invoice">
+                                <span class="order-invoice">
+                                    <i class="fa-regular fa-file-lines" aria-hidden="true"></i>
+                                    @order.InvoiceNumber
+                                </span>
+                            </td>
+                            <td data-label="Customer">@order.CompanyName</td>
+                            <td data-label="Salesman">@($"{order.FirstName} {order.LastName}".Trim())</td>
+                            <td data-label="Order date">@order.OrderDate.ToString("dd MMM yyyy")</td>
+                            <td data-label="Due date">
+                                @(order.DueDate?.ToString("dd MMM yyyy") ?? "—")
+                            </td>
+                            <td data-label="Delivery">@order.DeliveryCompanyName</td>
+                            <td data-label="Actions">
+                                <div class="action-buttons order-row-actions">
+                                    <a asp-action="Edit" asp-route-invoiceNumber="@order.InvoiceNumber"
+                                       class="blue-button order-icon-button" title="Edit order"
+                                       aria-label="Edit order @order.InvoiceNumber">
+                                        <i class="fa-solid fa-pen-to-square" aria-hidden="true"></i>
+                                    </a>
+                                    <form asp-action="Delete" asp-controller="Order" method="post"
+                                          onsubmit="return confirm('Yakin ingin menghapus order ini?');">
+                                        <input type="hidden" name="invoiceNumber" value="@order.InvoiceNumber" />
+                                        <button type="submit" class="blue-button order-icon-button order-delete-button"
+                                                title="Delete order" aria-label="Delete order @order.InvoiceNumber">
+                                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        no++;
+                    }
                 }
             </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7">
-                        <div class="pagination">
-                            <div>Page @Model.PageNumber of @Model.TotalPages</div>
-                            <div>
-                                @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
-                                {
-                                    <a asp-action="Index"
-                                       asp-route-invoiceNumber="@ViewBag.InvoiceNumber"
-                                       asp-route-customerId="@Model.CustomerId"
-                                       asp-route-employeeNumber="@Model.EmployeeNumber"
-                                       asp-route-deliveryId="@Model.DeliveryId"
-                                       asp-route-page="@pageNumber" class="number">@pageNumber</a>
-                                }
+            @if (Model.TotalPages > 1)
+            {
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <div class="pagination order-pagination">
+                                <span>Page @Model.PageNumber of @Model.TotalPages</span>
+                                <div>
+                                    @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
+                                    {
+                                        <a asp-action="Index"
+                                           asp-route-invoiceNumber="@ViewBag.InvoiceNumber"
+                                           asp-route-customerId="@Model.CustomerId"
+                                           asp-route-employeeNumber="@Model.EmployeeNumber"
+                                           asp-route-deliveryId="@Model.DeliveryId"
+                                           asp-route-page="@pageNumber"
+                                           class="number @(pageNumber == Model.PageNumber ? "active" : "")"
+                                           aria-current="@(pageNumber == Model.PageNumber ? "page" : null)">@pageNumber</a>
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
+                        </td>
+                    </tr>
+                </tfoot>
+            }
         </table>
-    </section>
+    </div>
+</section>

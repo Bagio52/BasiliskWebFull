@@ -67,18 +67,12 @@ namespace Basilisk.Presentation.Web.Controllers
         [HttpGet]
         public IActionResult Insert()
         {
-            var categories = _categoryService.GetAllCategories();
-
             var model = new ProductInsertViewModel
             {
-                Products = new ProductViewModel(),
-                Categories = categories.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Name
-                }).ToList()
+                Products = new ProductViewModel()
             };
 
+            PopulateProductOptions(model);
             return View(model);
         }
 
@@ -132,25 +126,20 @@ namespace Basilisk.Presentation.Web.Controllers
         [HttpGet]
         public IActionResult Edit(long id)
         {
-            var model = _service.GetProductById(id);
+            var product = _service.GetProductById(id);
 
-            if (model == null)
+            if (product == null)
             {
                 return NotFound();
             }
 
-            var categories = _categoryService.GetAllCategories();
-
-            return View(new ProductInsertViewModel
+            var model = new ProductInsertViewModel
             {
-                Products = model,
-                Categories = categories.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Name,
-                    Selected = c.Id == model.CategoryId
-                }).ToList()
-            });
+                Products = product
+            };
+            PopulateProductOptions(model);
+
+            return View(model);
         }
 
         [HttpPost]
@@ -158,14 +147,7 @@ namespace Basilisk.Presentation.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var categories = _categoryService.GetAllCategories();
-                model.Categories = categories.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.Name,
-                    Selected = c.Id == model.Products.CategoryId
-                }).ToList();
-
+                PopulateProductOptions(model);
                 return View(model);
             }
 
@@ -214,4 +196,3 @@ namespace Basilisk.Presentation.Web.Controllers
         }
     }
 }
-

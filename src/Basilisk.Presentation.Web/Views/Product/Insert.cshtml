@@ -33,7 +33,7 @@
                         <option value="">Category...</option>
                     </select>
                     <span asp-validation-for="Products.CategoryId" class="field-validation-error"></span>
-                </td>
+                </td> 
             </tr>
             <tr>
                 <td><label asp-for="Products.SupplierId">
@@ -82,26 +82,25 @@
                     <input asp-for="Products.Discontinued" type="checkbox">
                     <span asp-validation-for="Products.Discontinued" class="field-validation-error"></span>
                 </td>
-
-                <tr>
-                    <td class="textarea-label"><label asp-for="Products.Description">
-                        Product Description
-                    </label></td>
-                    <td>
-                        <textarea asp-for="Products.Description"></textarea>
-                        <span asp-validation-for="Products.Description" class="field-validation-error"></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><label asp-for="Image">
-                        Product Image
-                    </label></td>
-                    <td>
-                        <input asp-for="Image" type="file" accept=".jpg,.jpeg,.png,.gif,.webp">
-                        <span asp-validation-for="Image" class="field-validation-error"></span>
-                    </td>
-                </tr>
+            </tr>
+            <tr>
+                <td class="textarea-label"><label asp-for="Products.Description">
+                    Product Description
+                </label></td>
+                <td>
+                    <textarea asp-for="Products.Description"></textarea>
+                    <span asp-validation-for="Products.Description" class="field-validation-error"></span>
+                </td>
+            </tr>
+            <tr>
+                <td><label asp-for="Image">
+                    Product Image
+                </label></td>
+                <td>
+                    <input asp-for="Image" type="file" accept=".jpg,.jpeg,.png,.gif,.webp">
+                    <span asp-validation-for="Image" class="field-validation-error"></span>
+                </td>
+            </tr>
             </tbody>
         </table>
         <button class="blue-button" type="submit">Insert Product</button>

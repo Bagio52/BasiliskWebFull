@@ -1,18 +1,18 @@
 @model Basilisk.Presentation.Web.ViewModels.Supplier.SupplierIndexViewModel
 @{
-    ViewData[index: "Title"] = "Supplier Index";
+    ViewData["Title"] = "Supplier Index";
 }
 
 @section breadCrumbs {
     <span>Supplier Index</span>
 }
 
-<section class="grid-container" supplier=index>
+<section class="grid-container supplier-index">
     <form asp-action="Index" method="get" class="filter">
-         <input type="text" name="searchCompanyName" placeholder="Company Name..." value="@ViewBag.SearchCompanyName" />
+        <input type="text" name="searchCompanyName" placeholder="Company Name..." value="@ViewBag.SearchCompanyName" />
         <input type="text" name="searchContactPerson" placeholder="Contact Person..."
-             value="@ViewBag.SearchContactPerson" />
-         <input type="text" name="searchJobTitle" placeholder="Job Title..." value="@ViewBag.SearchJobTitle" />
+               value="@ViewBag.SearchContactPerson" />
+        <input type="text" name="searchJobTitle" placeholder="Job Title..." value="@ViewBag.SearchJobTitle" />
         <button class="blue-button" type="submit">Search</button>
         <a asp-action="Index" class="blue-button">Reset</a>
     </form>
@@ -40,8 +40,15 @@
                     <td>@supplier.ContactPerson</td>
                     <td>@supplier.JobTitle</td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@supplier.Id" class="blue-button">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@supplier.Id" class="blue-button">Delete</a>
+                        <a asp-action="Edit" asp-route-id="@supplier.Id" class="blue-button">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </a>
+                        <form asp-action="Delete" asp-controller="Supplier" method="post" style="display:inline"
+                              onsubmit="return confirm('Yakin ingin menghapus supplier ini?');">
+
+                            <input type="hidden" name="id" value="@supplier.Id" />
+                            <button type="submit" class="blue-button"><i class="fa-solid fa-trash-can"></i></button>
+                        </form>
                     </td>
                 </tr>
 
@@ -49,8 +56,23 @@
             }
         </tbody>
         <tfoot>
-            
+            <tr>
+                <td colspan="5">
+                    <div class="pagination">
+                        <div>Page @Model.PageNumber of @Model.TotalPages</div>
+                    
+                        <div>
+                            @for (var pageNumber = 1; pageNumber <= Model.TotalPages; pageNumber++)
+                            {
+                                <a asp-action="Index" asp-route-searchCompanyName="@ViewBag.SearchCompanyName"
+                                   asp-route-searchContactPerson="@ViewBag.SearchContactPerson"
+                                   asp-route-searchJobTitle="@ViewBag.SearchJobTitle" asp-route-page="@pageNumber"
+                                   class="number">@pageNumber</a>
+                            }
+                        </div>
+                    </div>
+                </td>
+            </tr>
         </tfoot>
     </table>
 </section>
-

@@ -14,50 +14,46 @@
                 <td><label asp-for="Supplier.CompanyName">Company Name*</label></td>
                 <td>
                     <input asp-for="Supplier.CompanyName" type="text" />
-                    <div class="field-validation-error"></div>
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Supplier.CompanyName" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
                 <td><label asp-for="Supplier.ContactPerson">Contact Person*</label></td>
                 <td>
                     <input asp-for="Supplier.ContactPerson" type="text" />
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Supplier.ContactPerson" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
                 <td><label asp-for="Supplier.JobTitle">Job Title*</label></td>
                 <td>
                     <input asp-for="Supplier.JobTitle" type="text" />
-                    <div class="field-validation-error"></div>
+                    <span asp-validation-for="Supplier.JobTitle" class="field-validation-error"></span>
                 </td>
             </tr>
             <tr>
                 <td><label asp-for="Supplier.Address">Address</label></td>
                 <td>
                     <input asp-for="Supplier.Address" type="text" />
-                    <div class="field-validation-error"></div>
                 </td>
             </tr>
             <tr>
                 <td><label asp-for="Supplier.City">City</label></td>
                 <td>
                     <input asp-for="Supplier.City" type="text" />
-                    <div class="field-validation-error"></div>
                 </td>
             </tr>
             <tr>
                 <td><label asp-for="Supplier.Phone">Phone</label></td>
                 <td>
                     <input asp-for="Supplier.Phone" type="text" />
-                    <div class="field-validation-error"></div>
                 </td>
             </tr>
             <tr>
                 <td><label asp-for="Supplier.Email">Email</label></td>
                 <td>
-                    <input asp-for="Supplier.Email" type="text" />
-                    <div class="field-validation-error"></div>
+                    <input asp-for="Supplier.Email" type="email" />
+                    <span asp-validation-for="Supplier.Email" class="field-validation-error"></span>
                 </td>
             </tr>
         </tbody>

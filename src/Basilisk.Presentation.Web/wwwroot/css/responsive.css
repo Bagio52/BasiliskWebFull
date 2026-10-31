@@ -149,3 +149,159 @@
         display:none;
     }
 }
+
+@media only screen and (max-width: 960px) {
+        .order-index-header {
+            padding: 20px;
+        }
+        .order-filter {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            padding: 16px 20px;
+        }
+        .order-filter-actions {
+            grid-column: 1 / -1;
+        }
+        .order-filter-actions .blue-button {
+            flex: 1;
+        }
+        .order-table-wrap {
+            overflow: visible;
+        }
+        .order-index .order-table {
+            min-width: 0;
+            margin-top: 0;
+        }
+        .order-index .order-table tbody tr {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0 18px;
+            padding: 10px 16px;
+        }
+        .order-index .order-table tbody tr td {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 0;
+            text-align: right;
+        }
+        .order-index .order-table tbody tr td::before {
+            color: #8192b6;
+            content: attr(data-label);
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: .4px;
+            text-align: left;
+            text-transform: uppercase;
+        }
+        .order-index .order-table tbody tr td[colspan] {
+            display: block;
+            grid-column: 1 / -1;
+            padding: 0;
+        }
+        .order-index .order-table tbody tr td[colspan]::before {
+            content: none;
+        }
+        .order-row-actions {
+            justify-content: flex-end;
+        }
+        .order-index .order-pagination {
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    }
+
+@media only screen and (max-width: 600px) {
+        .order-index-header {
+            align-items: flex-start;
+            padding: 18px 16px;
+        }
+        .order-index-header h1 {
+            font-size: 20px;
+        }
+        .order-create-button {
+            flex-shrink: 0;
+            padding: 0 11px;
+        }
+        .order-filter {
+            grid-template-columns: minmax(0, 1fr);
+            padding: 16px;
+        }
+        .order-filter-actions {
+            grid-column: auto;
+        }
+        .order-index .order-table tbody tr {
+            grid-template-columns: minmax(0, 1fr);
+            padding: 8px 16px;
+        }
+        .order-index .order-table tbody tr td {
+            text-align: right;
+        }
+        .order-index .order-table tbody tr td[data-label="Actions"] {
+            border-top: 1px solid #303d5e;
+        }
+        .order-index .order-table tbody tr td[data-label="Actions"]::before {
+            align-self: center;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .product-catalog-header {
+        padding: 20px;
+    }
+    .product-filter {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 16px 20px;
+    }
+    .product-filter-actions {
+        grid-column: 1 / -1;
+    }
+    .product-filter-actions .blue-button {
+        flex: 1;
+    }
+    .product-results-heading {
+        padding: 18px 20px 14px;
+    }
+    .product-card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 12px;
+        padding: 0 20px 20px;
+    }
+    .product-empty-state {
+        margin: 0 20px 20px;
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .product-catalog-header {
+        align-items: flex-start;
+        padding: 18px 16px;
+    }
+    .product-catalog-header h1 {
+        font-size: 20px;
+    }
+    .product-create-button {
+        flex-shrink: 0;
+        padding: 0 11px;
+    }
+    .product-filter {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 16px;
+    }
+    .product-filter-actions {
+        grid-column: auto;
+    }
+    .product-results-heading {
+        padding: 18px 16px 12px;
+    }
+    .product-card-grid {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 0 16px 16px;
+    }
+    .product-empty-state {
+        margin: 0 16px 16px;
+        padding: 20px 16px;
+    }
+}
